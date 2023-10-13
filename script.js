@@ -22,6 +22,9 @@ const body = document.getElementsByTagName('body')[0]
 
 createContainer();
 makeSquares();
+applyGradient();
+
+
 function createContainer(){
     const board = document.createElement('div')
     board.style.display = 'flex'
@@ -29,36 +32,46 @@ function createContainer(){
     board.style.width = '800px'
     board.style.height = '800px'
     board.style.margin = 'auto'
-    board.style.zIndex = '10'
-    board.style.backgroundImage = 'linear-gradient (315deg, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1))'
+    
     body.appendChild(board);
+    
 }
 function makeSquares(){
-    board = body.querySelector('div')
+   const board = body.querySelector('div')
     // makes row tiles
     for (let row = 0; row < 8; row++){
         // makes col tiles
         for (let col = 0; col < 8; col++){
             let tile = document.createElement('div')
-            tile.zIndex = '-1'
             tile.style.width = '12.5%'
             tile.style.height = '12.5%'
-            tile.style.backgroundColor = (row + col) % 2 === 0 ? 'red' : 'black'
+            tile.style.backgroundColor = randomColor()//(row + col) % 2 === 0 ? 'red' : 'black'
             tile.className = 'deleteMe'
             board.appendChild(tile)
         }
     }
 }
 
-/*
+function applyGradient(){
+    const gradient = document.createElement('div');
+    gradient.style.position = 'absolute'
+    gradient.style.top = '0'
+    gradient.style.left = '0'
+    gradient.style.width = '100%'
+    gradient.style.height = '100%'
+    gradient.style.backgroundImage = 'linear-gradient(315deg, rgba(0,191,255,0), rgba(0,191,255,1))'
+    gradient.style.zIndex = '1'
+
+    body.appendChild(gradient)
+}
+
 function randomColor(){
-    let randomColor = `rgb(${Math.ceil(Math.random()* 255)}, ${Math.ceil(Math.random()* 255)}, ${Math.ceil(Math.random() * 255)})`
-    return randomColor
+    return `rgb(${Math.ceil(Math.random()* 255)}, ${Math.ceil(Math.random()* 255)}, ${Math.ceil(Math.random() * 255)})`
+    
 }
 setInterval(function (){
-    let tiles = document.querySelectorAll('.deleteMe');
+    const tiles = document.querySelectorAll('.deleteMe');
     for (let i = 0; i < tiles.length; i++){
         tiles[i].style.backgroundColor = randomColor();
     }
 }, 2000)
-*/
